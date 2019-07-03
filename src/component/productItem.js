@@ -9,11 +9,19 @@ class ProductItem extends Component {
         document.location.reload(reload)
     }
 
+    formatRupiah= (angka) => {
+        var	reverse = angka.toString().split('').reverse().join(''),
+        ribuan 	= reverse.match(/\d{1,3}/g);
+        ribuan	= ribuan.join('.').split('').reverse().join('');
+        return (ribuan)
+    }
+
     addToCart = () => {
         const idUsername = this.props.user.id
         const qty = parseInt(this.qty.value)
         var {id,nama,price,stock,src} = this.props.products
         
+        // JAWAWAB SOAL NOMER 1 & 2
         // melakukan validasi apakah user telah login & memasukan qty saat menekan "Add to Cart"
         if(qty > 0 && idUsername !== ""){
                 axios.get(
@@ -80,7 +88,7 @@ class ProductItem extends Component {
     //     var {id,nama,price,src} = this.props.products
         
     //     // melakukan validasi apakah user telah login & memasukan qty saat menekan "Add to Cart"
-    //     if(qty >= 0 && idUsername !== ""){
+    //     if(qty > 0 && idUsername !== ""){
     //             axios.get(
     //                 'http://localhost:2019/cart',
     //                 {
@@ -135,7 +143,7 @@ class ProductItem extends Component {
                     <img className='card-img-top' src={src}/>
                     <div className='card-body'>
                         <h5 className='card-title'>{nama}</h5>
-                        <p className='card-text'>Rp. {price}</p>
+                        <p className='card-text'>Rp. {this.formatRupiah(price)}</p>
                         <p className='card-text'>Stock Barang = {stock}</p>
                         <input className="form-control" ref={input => {this.qty = input}} type="text" defaultValue='0'/>
                         <Link to={'/detailproduct/' + id}>

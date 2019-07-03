@@ -26,7 +26,7 @@
       "price": "500",
       "src": "https://liquipedia.net/commons/images/6/69/Observer_Ward.png",
       "id": 1,
-      "stock": "50"
+      "stock": 46
     },
     {
       "nama": "Blade of Alacrity",
@@ -58,7 +58,7 @@
       "price": "2500",
       "src": "https://liquipedia.net/commons/images/d/d8/Boots_of_Travel.png",
       "id": 5,
-      "stock": "50"
+      "stock": 49
     },
     {
       "nama": "Holy Locket",
@@ -72,7 +72,7 @@
       "nama": "Shiva's Guard",
       "desc": "Shiva's Guard (also known as Shiva's) is a powerful item that works great on many carry and support heroes that need high Intelligence stats. It is a situational item for the late game that can cripple the entire enemy team, giving your team an edge in battle",
       "price": "4750",
-      "stock": "50",
+      "stock": 47,
       "src": "https://liquipedia.net/commons/images/8/89/Shivas_Guard.png",
       "id": 7
     },
@@ -80,7 +80,7 @@
       "nama": "Butterfly",
       "desc": "Butterfly is one of the strongest agility items for a late game carry.",
       "price": "5475",
-      "stock": "50",
+      "stock": 49,
       "src": "https://liquipedia.net/commons/images/thumb/1/10/Butterfly.png/85px-Butterfly.png",
       "id": 8
     },
@@ -88,7 +88,7 @@
       "nama": "Eye of Skadi",
       "desc": "Eye of Skadi (also known as Skadi) is an excellent late game item providing high stat gain.",
       "price": "5500",
-      "stock": "50",
+      "stock": 48,
       "src": "https://liquipedia.net/commons/images/6/64/Eye_of_Skadi.png",
       "id": 9
     },
@@ -96,7 +96,7 @@
       "nama": "Sacred Relic",
       "desc": "Sacred Relic is a Secret item purchasable from the Secret Shop.",
       "price": "3800",
-      "stock": "50",
+      "stock": 49,
       "src": "https://liquipedia.net/commons/images/thumb/4/41/Sacred_Relic.png/85px-Sacred_Relic.png",
       "id": 10
     }
@@ -104,30 +104,21 @@
   "cart": [
     {
       "idUser": 2,
-      "idProduct": 1,
-      "nama": "Observer Ward",
-      "qty": 4,
-      "price": "500",
-      "src": "https://liquipedia.net/commons/images/6/69/Observer_Ward.png",
+      "idProduct": 6,
+      "nama": "Holy Locket",
+      "qty": 3,
+      "price": "2700",
+      "src": "https://liquipedia.net/commons/images/thumb/e/ec/Holy_Locket.png/85px-Holy_Locket.png",
       "id": 1
     },
     {
       "idUser": 2,
-      "idProduct": 5,
-      "nama": "Boots of Travel",
-      "qty": 1,
-      "price": "2500",
-      "src": "https://liquipedia.net/commons/images/d/d8/Boots_of_Travel.png",
-      "id": 3
-    },
-    {
-      "idUser": 2,
-      "idProduct": 10,
-      "nama": "Sacred Relic",
-      "qty": 1,
-      "price": "3800",
-      "src": "https://liquipedia.net/commons/images/thumb/4/41/Sacred_Relic.png/85px-Sacred_Relic.png",
-      "id": 4
+      "idProduct": 1,
+      "nama": "Observer Ward",
+      "qty": 5,
+      "price": "500",
+      "src": "https://liquipedia.net/commons/images/6/69/Observer_Ward.png",
+      "id": 2
     }
   ]
 }

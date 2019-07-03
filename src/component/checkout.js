@@ -10,6 +10,7 @@ class checkOut extends Component {
         this.state = {
             modal: false, // state untuk toggle pop-up "Pembayaran"
             bayar: false, // state untuk toggle pop-up "Bayar"
+            checkout: false,
             cart : [], // state cart
             item : [], // menampung item pada saat EDIT
             selectedID: 0 // state untuk membuka fitur EDIT
@@ -41,6 +42,13 @@ class checkOut extends Component {
           bayar: !prevState.bayar
         }));
     }
+ 
+    formatRupiah= (angka) => { // JAWABAN SOAL NOMER 4 :  merubah angka kedalam format rupiah
+        var	reverse = angka.toString().split('').reverse().join(''),
+        ribuan 	= reverse.match(/\d{1,3}/g);
+        ribuan	= ribuan.join('.').split('').reverse().join('');
+        return (ribuan)
+    }
 
     totalQty = () => { // Menjumlahkan Qty yang dibeli user
         var totalQty = 0 // menampung qty saat dijumlahkan
@@ -70,7 +78,7 @@ class checkOut extends Component {
             }
         }
         return (
-            <td>Rp. {subTotalHarga}</td>
+            subTotalHarga
         )
     }
 
@@ -116,12 +124,10 @@ class checkOut extends Component {
             if(this.props.user.id === item.idUser){
                 return (
                     <tr>
-                        <td>
-                        <img className='list' src={item.src}/>
-                        </td>
                         <td>{item.nama}</td>
-                        <td>{item.price}</td>
+                        <td>Rp. {this.formatRupiah(item.price)}</td>
                         <td>{item.qty}</td>
+                        <td>Rp. {this.formatRupiah((item.price*item.qty))}</td>
                     </tr>
                 )
             }
@@ -160,6 +166,50 @@ class checkOut extends Component {
         // })
     }
 
+    renderCheckout = () => { // JAWABAN SOAL NOMER 3 : me-render table "Checkout" di bawah Cart
+        if(this.state.checkout === true){
+            return (
+            <div>
+                <h1>Check-Out</h1>
+                <table className="table table-hover mb-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">NAME</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">QTY</th>
+                            
+                            <th scope="col">SUBTOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.pembayaran()}
+                        <tr>
+                            <td><b>TOTAL BARANG = </b></td>
+                            {this.totalQty()}
+                        </tr>
+                        <tr>
+                            <td><b>TOTAL HARGA = </b></td>
+                            <td>Rp. {this.formatRupiah(this.totalHarga())}</td>
+                        </tr>
+                    </tbody>
+                    <div className='container'>
+                        <button class="btn btn-primary btn-block" onClick={()=>{this.bayarCheckout(this.state.cart)}}>Bayar</button>   
+                    </div>
+                </table>
+            </div>
+            )
+        }
+    }
+
+    bayarCheckout = () => { // menyelesaikan transaksi
+        return this.state.cart.map(item => {
+            if(this.props.user.id === item.idUser){
+                this.toggleBayar()
+                axios.delete('http://localhost:2019/cart/'+item.id)
+            }
+        })
+    }
+
     renderList = () => {
         if(this.props.user.username !== ''){ // udah login apa blom   
             return this.state.cart.map( item => { // ngerender
@@ -171,9 +221,8 @@ class checkOut extends Component {
                                 <img className='list' src={item.src}/>
                                 </td>
                                 <td>{item.nama}</td>
-                                <td>{item.price}</td>
+                                <td>Rp. {this.formatRupiah(item.price)}</td>
                                 <td>{item.qty}</td>
-                                <td>{item.price*item.qty}</td>
                                 <td>            
                                     <button className = 'btn btn-danger m-1' onClick={()=>{this.setState({selectedID : item.id, item: item})}}>Edit</button>
                                     <button className = 'btn btn-warning m-1' onClick={()=>{this.deleteProduct(item)}}>Delete</button>
@@ -212,9 +261,10 @@ class checkOut extends Component {
             <div class="card row shopping-cart">
             <div className="container">
                 <div class="card-header bg-dark text-light row">
-                    <i class="fa fa-shopping-cart col-4" aria-hidden="true">Shopping Cart</i>
-                    <Button color="primary" className="btn btn-sm col-3 m-1" onClick={this.toggle}>Pembayaran</Button>
-                    <a href="/" class="btn btn-success btn-sm col-3 m-1">Continue Shopping</a>
+                    <i class="fa fa-shopping-cart col-3" aria-hidden="true">Shopping Cart</i>
+                    <Button color="primary" className="btn btn-sm col-2 m-1" onClick={this.toggle}>Pembayaran</Button>
+                    <Button color="primary" className="btn btn-sm col-2 m-1" onClick={()=>{this.setState({checkout : true})}}>Check-Out</Button>
+                    <a href="/" class="btn btn-success btn-sm col-2 m-1">Continue Shopping</a>
                     <div class="clearfix"></div>
                 </div>
                 <table className="table table-hover mb-5">
@@ -223,8 +273,7 @@ class checkOut extends Component {
                             <th scope="col">PRODUCT</th>
                             <th scope="col">NAME</th>
                             <th scope="col">PRICE</th>
-                            <th scope="col">QTY</th>
-                            <th scope="col">SUBTOTAL</th>
+                            <th scope="col">QTY</th>    
                             <th scope="col">ACTION</th>
                         </tr>
                     </thead>
@@ -233,16 +282,18 @@ class checkOut extends Component {
                     </tbody>
                 </table>
                 <div>
+                    {/* Render Pop-up Invoice belanja */}
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader className="mx-auto">Pembayaran</ModalHeader>
                     <ModalBody>
                         <table className="table table-hover mb-5">
                         <thead>
                             <tr>
-                                <th scope="col">PRODUCT</th>
                                 <th scope="col">NAME</th>
                                 <th scope="col">PRICE</th>
                                 <th scope="col">QTY</th>
+                                
+                                <th scope="col">SUBTOTAL</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -253,16 +304,18 @@ class checkOut extends Component {
                             </tr>
                             <tr>
                                 <td><b>TOTAL HARGA = </b></td>
-                                {this.totalHarga()}
+                                <td>Rp. {this.formatRupiah(this.totalHarga())}</td>
                             </tr>
                         </tbody>
                         </table>
+                            {this.renderCheckout()}
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={()=>{this.bayar()}}>Bayar</Button>{' '}
                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                     
+                    {/* Render Pop-Up notifikasi selesai belanja */}
                     </Modal>
                     <Modal isOpen={this.state.bayar} toggle={this.toggleBayar} className={this.props.className}>
                     <ModalHeader className="mx-auto">Belanja Selesai</ModalHeader>
@@ -273,6 +326,9 @@ class checkOut extends Component {
                         <Button color="secondary" href='/'>Cancel</Button>
                     </ModalFooter>
                     </Modal>
+
+                    {/* Render Table Checkout */}
+                    {this.renderCheckout()}
                 </div>    
             </div>
             </div>
