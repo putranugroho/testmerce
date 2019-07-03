@@ -119,6 +119,42 @@
       "price": "500",
       "src": "https://liquipedia.net/commons/images/6/69/Observer_Ward.png",
       "id": 2
+    },
+    {
+      "idUser": 3,
+      "idProduct": 2,
+      "nama": "Blade of Alacrity",
+      "qty": 3,
+      "price": "1000",
+      "src": "https://liquipedia.net/commons/images/a/a3/Blade_of_Alacrity.png",
+      "id": 3
+    },
+    {
+      "idUser": 3,
+      "idProduct": 3,
+      "nama": "Claymore",
+      "qty": 9,
+      "price": "1400",
+      "src": "https://liquipedia.net/commons/images/0/0c/Claymore.png",
+      "id": 4
+    },
+    {
+      "idUser": 3,
+      "idProduct": 6,
+      "nama": "Holy Locket",
+      "qty": 5,
+      "price": "2700",
+      "src": "https://liquipedia.net/commons/images/thumb/e/ec/Holy_Locket.png/85px-Holy_Locket.png",
+      "id": 5
+    },
+    {
+      "idUser": 3,
+      "idProduct": 8,
+      "nama": "Butterfly",
+      "qty": 1,
+      "price": "5475",
+      "src": "https://liquipedia.net/commons/images/thumb/1/10/Butterfly.png/85px-Butterfly.png",
+      "id": 6
     }
   ]
 }
